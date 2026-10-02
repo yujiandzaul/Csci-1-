@@ -9,8 +9,8 @@
     :root {
       color-scheme: light;
       font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-      color: #ffffff;
-      background: #1D428A;
+      color: var(--page-foreground, #ffffff);
+      background: var(--page-background, #1D428A);
       font-synthesis: none;
       text-rendering: optimizeLegibility;
       --ink: #17241f;
@@ -30,18 +30,86 @@
       min-height: 100vh;
       margin: 0;
       padding: 0 0 104px;
-      background: #1D428A;
+      background: var(--page-background, #1D428A);
     }
 
     .topbar {
       min-height: 64px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 16px;
       padding: 0 5vw;
       border-bottom: 1px solid var(--line);
       background: rgba(255, 255, 255, 0.72);
       color: var(--ink);
+    }
+
+    .settings-button {
+      min-height: 32px;
+      padding: 0 9px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.8);
+      font: inherit;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .settings-wrap {
+      position: relative;
+    }
+
+    .settings-menu {
+      position: absolute;
+      z-index: 5;
+      top: calc(100% + 10px);
+      left: 0;
+      width: 232px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(23, 36, 31, 0.16);
+    }
+
+    .settings-menu[hidden] {
+      display: none;
+    }
+
+    .color-setting {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .color-setting input {
+      width: 42px;
+      height: 34px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .color-value {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.7rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .settings-button:focus-visible {
+      outline: 3px solid #e8a06f;
+      outline-offset: 2px;
     }
 
     .brand {
@@ -67,14 +135,6 @@
       font-weight: 700;
     }
 
-    .demo-note {
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
     main {
       width: min(1120px, calc(100% - 40px));
       margin: 42px auto 0;
@@ -90,7 +150,7 @@
 
     .eyebrow {
       margin: 0 0 8px;
-      color: #ffffff;
+      color: var(--page-foreground, #ffffff);
       font-size: 0.75rem;
       font-weight: 800;
       letter-spacing: 0.14em;
@@ -105,11 +165,28 @@
       line-height: 1;
     }
 
-    .date-label {
-      padding-bottom: 3px;
-      color: #ffffff;
-      font-size: 0.9rem;
-      white-space: nowrap;
+    .page-quote {
+      width: min(330px, 42%);
+      margin: 0;
+      padding-left: 12px;
+      border-left: 2px solid var(--orange);
+      color: var(--page-foreground, #ffffff);
+      align-self: center;
+      text-align: right;
+    }
+
+    .page-quote blockquote {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.92rem;
+      font-style: italic;
+      line-height: 1.4;
+    }
+
+    .page-quote figcaption {
+      margin-top: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
     }
 
     .conference-label {
@@ -117,7 +194,7 @@
       align-items: center;
       gap: 9px;
       margin: 0 0 12px;
-      color: #ffffff;
+      color: var(--page-foreground, #ffffff);
       font-size: 0.8rem;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -147,7 +224,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 2px 10px;
-      color: #dce8f7;
+      color: var(--page-foreground, #dce8f7);
       font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.1em;
@@ -220,9 +297,29 @@
     }
 
     .team-name {
+      flex: 1;
+      min-width: 0;
+      padding: 0;
+      border: 0;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      color: inherit;
+      background: transparent;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .team-name:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .team-name:focus-visible {
+      border-radius: 2px;
+      outline: 2px solid #ffffff;
+      outline-offset: 3px;
     }
 
     .score {
@@ -258,6 +355,165 @@
       font-size: 0.68rem;
       font-weight: 800;
       white-space: nowrap;
+    }
+
+    .roster-dialog {
+      width: min(480px, calc(100% - 32px));
+      max-height: min(82vh, 700px);
+      padding: 0;
+      overflow: hidden;
+      border: 0;
+      border-radius: 7px;
+      color: var(--ink);
+      background: #fff;
+      box-shadow: 0 18px 56px rgba(0, 0, 0, 0.28);
+    }
+
+    .roster-dialog[open] {
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+    }
+
+    .roster-dialog::backdrop {
+      background: rgba(10, 20, 38, 0.66);
+      backdrop-filter: blur(3px);
+    }
+
+    .roster-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .roster-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      line-height: 1.1;
+    }
+
+    .roster-close {
+      min-height: 34px;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      color: var(--ink);
+      background: #fff;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .roster-close:focus-visible {
+      outline: 3px solid #e8a06f;
+      outline-offset: 2px;
+    }
+
+    .roster-status {
+      min-height: 38px;
+      margin: 0;
+      padding: 10px 20px 4px;
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+
+    .roster-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-content: start;
+      gap: 0 16px;
+      margin: 0;
+      padding: 0 20px 16px;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .roster-player {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .player-avatar {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #edf0f3;
+    }
+
+    .player-avatar img,
+    .player-initials {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .player-avatar img {
+      object-fit: cover;
+    }
+
+    .player-initials {
+      display: grid;
+      place-items: center;
+      color: #364251;
+      font-size: 0.68rem;
+      font-weight: 800;
+    }
+
+    .player-initials[hidden] {
+      display: none;
+    }
+
+    .player-details {
+      display: grid;
+      min-width: 0;
+      gap: 3px;
+    }
+
+    .player-name {
+      overflow: hidden;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .player-position {
+      color: var(--muted);
+      font-size: 0.67rem;
+    }
+
+    .player-number {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .roster-source {
+      margin: 0;
+      padding: 10px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.68rem;
+      text-align: right;
+    }
+
+    .roster-source a {
+      color: var(--green);
+      font-weight: 700;
     }
 
     .conference-picker {
@@ -333,6 +589,16 @@
         gap: 20px;
       }
 
+      .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .page-quote {
+        width: min(100%, 330px);
+        align-self: flex-end;
+      }
+
       .game-card {
         min-height: 84px;
       }
@@ -340,10 +606,6 @@
       .conference-picker {
         flex-direction: column;
         gap: 7px;
-      }
-
-      .picker-label {
-        font-size: 0.64rem;
       }
 
       .segmented-control {
@@ -354,6 +616,10 @@
         flex: 1;
         padding: 0 10px;
         font-size: 0.75rem;
+      }
+
+      .roster-list {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -367,8 +633,17 @@
 </head>
 <body>
   <header class="topbar">
+    <div class="settings-wrap">
+      <button class="settings-button" id="settingsButton" type="button" aria-expanded="false" aria-controls="settingsMenu">Settings</button>
+      <div class="settings-menu" id="settingsMenu" role="group" aria-labelledby="backgroundColorLabel" hidden>
+        <label class="color-setting" for="backgroundColor">
+          <span id="backgroundColorLabel">Page background</span>
+          <input id="backgroundColor" type="color" value="#1D428A" aria-label="Choose page background color">
+        </label>
+        <output class="color-value" id="backgroundColorValue" for="backgroundColor">#1D428A</output>
+      </div>
+    </div>
     <div class="brand"><span class="brand-mark" aria-hidden="true">B</span> Court Report</div>
-    <span class="demo-note">Demo scoreboard</span>
   </header>
 
   <main>
@@ -377,7 +652,10 @@
         <p class="eyebrow">The daily slate</p>
         <h1>Game tracker</h1>
       </div>
-      <div class="date-label">Sample matchups</div>
+      <figure class="page-quote">
+        <blockquote>"Choose to be optimistic, it feels better."</blockquote>
+        <figcaption>Dalai Lama</figcaption>
+      </figure>
     </div>
 
     <p class="conference-label" id="conferenceLabel">Western Conference</p>
@@ -385,12 +663,21 @@
   </main>
 
   <footer class="conference-picker">
-    <span class="picker-label">Choose conference</span>
     <div class="segmented-control" role="group" aria-label="Select conference">
       <button class="conference-button" type="button" data-conference="West" aria-pressed="true">Western Conference</button>
       <button class="conference-button" type="button" data-conference="East" aria-pressed="false">Eastern Conference</button>
     </div>
   </footer>
+
+  <dialog class="roster-dialog" id="rosterDialog" aria-labelledby="rosterTitle">
+    <div class="roster-header">
+      <h2 class="roster-title" id="rosterTitle"></h2>
+      <button class="roster-close" id="closeRoster" type="button">Close</button>
+    </div>
+    <p class="roster-status" id="rosterStatus" aria-live="polite">Loading roster...</p>
+    <ul class="roster-list" id="rosterList"></ul>
+    <p class="roster-source">Roster data: <a href="https://www.espn.com/nba/" target="_blank" rel="noopener noreferrer">ESPN</a></p>
+  </dialog>
 
   <script>
     const games = {
@@ -423,6 +710,17 @@
     const gamesGrid = document.querySelector("#gamesGrid");
     const conferenceLabel = document.querySelector("#conferenceLabel");
     const conferenceButtons = document.querySelectorAll(".conference-button");
+    const settingsButton = document.querySelector("#settingsButton");
+    const settingsMenu = document.querySelector("#settingsMenu");
+    const backgroundColorInput = document.querySelector("#backgroundColor");
+    const backgroundColorValue = document.querySelector("#backgroundColorValue");
+    const rosterDialog = document.querySelector("#rosterDialog");
+    const rosterTitle = document.querySelector("#rosterTitle");
+    const rosterStatus = document.querySelector("#rosterStatus");
+    const rosterList = document.querySelector("#rosterList");
+    const teamRosterCache = new Map();
+    let espnTeamDirectory;
+    let rosterRequestId = 0;
     const teamLogoIds = {
       ATL: "1610612737", BOS: "1610612738", BKN: "1610612751", CHA: "1610612766",
       CHI: "1610612741", CLE: "1610612739", DAL: "1610612742", DEN: "1610612743",
@@ -471,16 +769,158 @@
       card.className = "game-card";
       card.innerHTML = `
         <div class="teams">
-          <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.awayAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.awayAbbr}</span></span><span class="team-name">${game.away}</span><span class="score">${game.awayScore || "–"}</span></div>
-          <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.homeAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.homeAbbr}</span></span><span class="team-name">${game.home}</span><span class="score">${game.homeScore || "–"}</span></div>
+          <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.awayAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.awayAbbr}</span></span><button class="team-name team-name-button" type="button" data-team-name="${game.away}" aria-haspopup="dialog" aria-controls="rosterDialog">${game.away}</button><span class="score">${game.awayScore || "–"}</span></div>
+          <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.homeAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.homeAbbr}</span></span><button class="team-name team-name-button" type="button" data-team-name="${game.home}" aria-haspopup="dialog" aria-controls="rosterDialog">${game.home}</button><span class="score">${game.homeScore || "–"}</span></div>
         </div>
         <div class="game-meta"><span class="game-date">${game.date}</span><span class="game-status">${game.status}</span>${game.detail}</div>
       `;
       return card;
     }
 
+    async function fetchTeamRoster(teamName) {
+      if (!espnTeamDirectory) {
+        espnTeamDirectory = fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams?limit=100")
+          .then((response) => {
+            if (!response.ok) throw new Error("Could not load the team directory.");
+            return response.json();
+          })
+          .then((data) => new Map(data.sports[0].leagues[0].teams.map(({ team }) => [team.displayName, team.id])))
+          .catch((error) => {
+            espnTeamDirectory = null;
+            throw error;
+          });
+      }
+
+      const teamDirectory = await espnTeamDirectory;
+      const teamId = teamDirectory.get(teamName);
+      if (!teamId) throw new Error("Team not found.");
+
+      if (!teamRosterCache.has(teamId)) {
+        teamRosterCache.set(teamId, fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${teamId}/roster`)
+          .then((response) => {
+            if (!response.ok) throw new Error("Could not load this roster.");
+            return response.json();
+          }));
+      }
+
+      try {
+        return await teamRosterCache.get(teamId);
+      } catch (error) {
+        teamRosterCache.delete(teamId);
+        throw error;
+      }
+    }
+
+    function renderRosterPlayers(players) {
+      rosterList.replaceChildren();
+      players.forEach((player) => {
+        const item = document.createElement("li");
+        item.className = "roster-player";
+
+        const avatar = document.createElement("span");
+        avatar.className = "player-avatar";
+        const initials = document.createElement("span");
+        initials.className = "player-initials";
+        initials.textContent = player.fullName.split(/\s+/).map((part) => part[0]).slice(0, 2).join("");
+        const image = document.createElement("img");
+        image.alt = "";
+        image.loading = "lazy";
+        if (player.headshot?.href) {
+          image.src = player.headshot.href;
+          initials.hidden = true;
+          image.onerror = () => {
+            image.hidden = true;
+            initials.hidden = false;
+          };
+        } else {
+          image.hidden = true;
+        }
+        avatar.append(image, initials);
+
+        const details = document.createElement("span");
+        details.className = "player-details";
+        const name = document.createElement("span");
+        name.className = "player-name";
+        name.textContent = player.fullName;
+        const position = document.createElement("span");
+        position.className = "player-position";
+        position.textContent = player.position?.displayName || "Player";
+        details.append(name, position);
+
+        const number = document.createElement("span");
+        number.className = "player-number";
+        number.textContent = player.jersey ? `#${player.jersey}` : "";
+        item.append(avatar, details, number);
+        rosterList.append(item);
+      });
+    }
+
+    async function openTeamRoster(teamName) {
+      const requestId = ++rosterRequestId;
+      rosterTitle.textContent = teamName;
+      rosterStatus.textContent = "Loading roster...";
+      rosterList.replaceChildren();
+      rosterDialog.showModal();
+
+      try {
+        const roster = await fetchTeamRoster(teamName);
+        if (requestId !== rosterRequestId) return;
+        const players = roster.athletes || [];
+        rosterStatus.textContent = players.length
+          ? `${players.length} players · ${roster.season?.displayName || "Current season"}`
+          : "No roster information is available for this team.";
+        renderRosterPlayers(players);
+      } catch {
+        if (requestId === rosterRequestId) {
+          rosterStatus.textContent = "Roster unavailable. Check your connection and try again.";
+        }
+      }
+    }
+
+    gamesGrid.addEventListener("click", (event) => {
+      const teamButton = event.target.closest(".team-name-button");
+      if (teamButton) openTeamRoster(teamButton.dataset.teamName);
+    });
+    document.querySelector("#closeRoster").addEventListener("click", () => rosterDialog.close());
+    rosterDialog.addEventListener("close", () => {
+      rosterRequestId += 1;
+    });
+    rosterDialog.addEventListener("click", (event) => {
+      if (event.target === rosterDialog) rosterDialog.close();
+    });
+
     conferenceButtons.forEach((button) => {
       button.addEventListener("click", () => renderConference(button.dataset.conference));
+    });
+
+    function setPageBackground(color) {
+      const [red, green, blue] = color.slice(1).match(/.{2}/g).map((channel) => parseInt(channel, 16));
+      const brightness = (red * 299 + green * 587 + blue * 114) / 1000;
+      document.documentElement.style.setProperty("--page-background", color);
+      document.documentElement.style.setProperty("--page-foreground", brightness > 150 ? "#17241f" : "#ffffff");
+      document.querySelector('meta[name="theme-color"]').content = color;
+      backgroundColorValue.value = color.toUpperCase();
+      backgroundColorValue.textContent = color.toUpperCase();
+    }
+
+    settingsButton.addEventListener("click", () => {
+      const isOpen = settingsButton.getAttribute("aria-expanded") === "true";
+      settingsButton.setAttribute("aria-expanded", String(!isOpen));
+      settingsMenu.hidden = isOpen;
+    });
+    backgroundColorInput.addEventListener("input", () => setPageBackground(backgroundColorInput.value));
+    document.addEventListener("click", (event) => {
+      if (!settingsMenu.hidden && !settingsMenu.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsMenu.hidden = true;
+        settingsButton.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !settingsMenu.hidden) {
+        settingsMenu.hidden = true;
+        settingsButton.setAttribute("aria-expanded", "false");
+        settingsButton.focus();
+      }
     });
 
     renderConference("West");
