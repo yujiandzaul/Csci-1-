@@ -16,7 +16,6 @@
       --ink: #17241f;
       --muted: #65716b;
       --line: #dce1dc;
-      --surface: #ffffff;
       --green: #116b50;
       --orange: #e17a3c;
     }
@@ -532,14 +531,6 @@
       backdrop-filter: blur(12px);
     }
 
-    .picker-label {
-      color: var(--muted);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
     .segmented-control {
       display: flex;
       gap: 4px;
@@ -682,28 +673,28 @@
   <script>
     const games = {
       West: [
-        { date: "Mon, Oct 26, 2026", away: "Los Angeles Lakers", awayAbbr: "LAL", awayScore: null, home: "Golden State Warriors", homeAbbr: "GSW", homeScore: null, status: "7:00 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Phoenix Suns", awayAbbr: "PHX", awayScore: null, home: "Denver Nuggets", homeAbbr: "DEN", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Dallas Mavericks", awayAbbr: "DAL", awayScore: null, home: "Minnesota Timberwolves", homeAbbr: "MIN", homeScore: null, status: "8:00 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Sacramento Kings", awayAbbr: "SAC", awayScore: null, home: "LA Clippers", homeAbbr: "LAC", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Portland Trail Blazers", awayAbbr: "POR", awayScore: null, home: "Utah Jazz", homeAbbr: "UTA", homeScore: null, status: "9:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Oklahoma City Thunder", awayAbbr: "OKC", awayScore: null, home: "Memphis Grizzlies", homeAbbr: "MEM", homeScore: null, status: "7:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Houston Rockets", awayAbbr: "HOU", awayScore: null, home: "New Orleans Pelicans", homeAbbr: "NOP", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "San Antonio Spurs", awayAbbr: "SAS", awayScore: null, home: "Golden State Warriors", homeAbbr: "GSW", homeScore: null, status: "8:30 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Denver Nuggets", awayAbbr: "DEN", awayScore: null, home: "Phoenix Suns", homeAbbr: "PHX", homeScore: null, status: "9:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Minnesota Timberwolves", awayAbbr: "MIN", awayScore: null, home: "Dallas Mavericks", homeAbbr: "DAL", homeScore: null, status: "9:30 PM", detail: "Tip-off" }
+        { date: "Mon, Oct 26, 2026", away: "Los Angeles Lakers", awayAbbr: "LAL", awayScore: null, home: "Golden State Warriors", homeAbbr: "GSW", homeScore: null, status: "7:00 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Phoenix Suns", awayAbbr: "PHX", awayScore: null, home: "Denver Nuggets", homeAbbr: "DEN", homeScore: null, status: "7:30 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Dallas Mavericks", awayAbbr: "DAL", awayScore: null, home: "Minnesota Timberwolves", homeAbbr: "MIN", homeScore: null, status: "8:00 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Sacramento Kings", awayAbbr: "SAC", awayScore: null, home: "LA Clippers", homeAbbr: "LAC", homeScore: null, status: "7:30 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Portland Trail Blazers", awayAbbr: "POR", awayScore: null, home: "Utah Jazz", homeAbbr: "UTA", homeScore: null, status: "9:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Oklahoma City Thunder", awayAbbr: "OKC", awayScore: null, home: "Memphis Grizzlies", homeAbbr: "MEM", homeScore: null, status: "7:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Houston Rockets", awayAbbr: "HOU", awayScore: null, home: "New Orleans Pelicans", homeAbbr: "NOP", homeScore: null, status: "7:30 PM" },
+        { date: "Tue, Oct 27, 2026", away: "San Antonio Spurs", awayAbbr: "SAS", awayScore: null, home: "Golden State Warriors", homeAbbr: "GSW", homeScore: null, status: "8:30 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Denver Nuggets", awayAbbr: "DEN", awayScore: null, home: "Phoenix Suns", homeAbbr: "PHX", homeScore: null, status: "9:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Minnesota Timberwolves", awayAbbr: "MIN", awayScore: null, home: "Dallas Mavericks", homeAbbr: "DAL", homeScore: null, status: "9:30 PM" }
       ],
       East: [
-        { date: "Mon, Oct 26, 2026", away: "Boston Celtics", awayAbbr: "BOS", awayScore: null, home: "New York Knicks", homeAbbr: "NYK", homeScore: null, status: "7:00 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Milwaukee Bucks", awayAbbr: "MIL", awayScore: null, home: "Cleveland Cavaliers", homeAbbr: "CLE", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Philadelphia 76ers", awayAbbr: "PHI", awayScore: null, home: "Miami Heat", homeAbbr: "MIA", homeScore: null, status: "8:00 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Brooklyn Nets", awayAbbr: "BKN", awayScore: null, home: "Toronto Raptors", homeAbbr: "TOR", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Mon, Oct 26, 2026", away: "Chicago Bulls", awayAbbr: "CHI", awayScore: null, home: "Indiana Pacers", homeAbbr: "IND", homeScore: null, status: "8:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Atlanta Hawks", awayAbbr: "ATL", awayScore: null, home: "Orlando Magic", homeAbbr: "ORL", homeScore: null, status: "7:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Charlotte Hornets", awayAbbr: "CHA", awayScore: null, home: "Washington Wizards", homeAbbr: "WAS", homeScore: null, status: "7:30 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "New York Knicks", awayAbbr: "NYK", awayScore: null, home: "Boston Celtics", homeAbbr: "BOS", homeScore: null, status: "8:00 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Cleveland Cavaliers", awayAbbr: "CLE", awayScore: null, home: "Milwaukee Bucks", homeAbbr: "MIL", homeScore: null, status: "8:30 PM", detail: "Tip-off" },
-        { date: "Tue, Oct 27, 2026", away: "Miami Heat", awayAbbr: "MIA", awayScore: null, home: "Philadelphia 76ers", homeAbbr: "PHI", homeScore: null, status: "9:00 PM", detail: "Tip-off" }
+        { date: "Mon, Oct 26, 2026", away: "Boston Celtics", awayAbbr: "BOS", awayScore: null, home: "New York Knicks", homeAbbr: "NYK", homeScore: null, status: "7:00 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Milwaukee Bucks", awayAbbr: "MIL", awayScore: null, home: "Cleveland Cavaliers", homeAbbr: "CLE", homeScore: null, status: "7:30 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Philadelphia 76ers", awayAbbr: "PHI", awayScore: null, home: "Miami Heat", homeAbbr: "MIA", homeScore: null, status: "8:00 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Brooklyn Nets", awayAbbr: "BKN", awayScore: null, home: "Toronto Raptors", homeAbbr: "TOR", homeScore: null, status: "7:30 PM" },
+        { date: "Mon, Oct 26, 2026", away: "Chicago Bulls", awayAbbr: "CHI", awayScore: null, home: "Indiana Pacers", homeAbbr: "IND", homeScore: null, status: "8:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Atlanta Hawks", awayAbbr: "ATL", awayScore: null, home: "Orlando Magic", homeAbbr: "ORL", homeScore: null, status: "7:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Charlotte Hornets", awayAbbr: "CHA", awayScore: null, home: "Washington Wizards", homeAbbr: "WAS", homeScore: null, status: "7:30 PM" },
+        { date: "Tue, Oct 27, 2026", away: "New York Knicks", awayAbbr: "NYK", awayScore: null, home: "Boston Celtics", homeAbbr: "BOS", homeScore: null, status: "8:00 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Cleveland Cavaliers", awayAbbr: "CLE", awayScore: null, home: "Milwaukee Bucks", homeAbbr: "MIL", homeScore: null, status: "8:30 PM" },
+        { date: "Tue, Oct 27, 2026", away: "Miami Heat", awayAbbr: "MIA", awayScore: null, home: "Philadelphia 76ers", homeAbbr: "PHI", homeScore: null, status: "9:00 PM" }
       ]
     };
 
@@ -772,7 +763,7 @@
           <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.awayAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.awayAbbr}</span></span><button class="team-name team-name-button" type="button" data-team-name="${game.away}" aria-haspopup="dialog" aria-controls="rosterDialog">${game.away}</button><span class="score">${game.awayScore || "–"}</span></div>
           <div class="team-row"><span class="team-mark"><img class="team-logo" src="${getTeamLogoUrl(game.homeAbbr)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.hidden=true; this.nextElementSibling.hidden=false"><span class="team-logo-fallback" hidden>${game.homeAbbr}</span></span><button class="team-name team-name-button" type="button" data-team-name="${game.home}" aria-haspopup="dialog" aria-controls="rosterDialog">${game.home}</button><span class="score">${game.homeScore || "–"}</span></div>
         </div>
-        <div class="game-meta"><span class="game-date">${game.date}</span><span class="game-status">${game.status}</span>${game.detail}</div>
+        <div class="game-meta"><span class="game-date">${game.date}</span><span class="game-status">${game.status}</span></div>
       `;
       return card;
     }
